@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/data/repository/movies_repository.dart';
 import 'package:flutter_application_2/domain/model/movie.dart';
+import 'package:flutter_application_2/presentation/list/movie_preview.dart';
 import 'package:provider/provider.dart';
 
 class MoviesListScreen extends StatefulWidget {
@@ -25,11 +26,18 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
           if (snapshot.hasData) {
             return ListView(
               children: List.generate(
-                snapshot.data!.length,
-                (index) => ListTile(
-                  title: Text(snapshot.data![index].title),
-                ),
-              ),
+                  snapshot.data!.length,
+                  (index) => Container(
+                        padding: EdgeInsets.only(
+                          left: 12.0,
+                          top: 6.0,
+                          right: 12.0,
+                          bottom: 6.0,
+                        ),
+                        child: MoviePreview(
+                          movie: snapshot.data![index],
+                        ),
+                      )),
             );
           } else {
             return const LinearProgressIndicator();
