@@ -11,7 +11,7 @@ MovieDbEntity _$MovieDbEntityFromJson(Map<String, dynamic> json) =>
       id: json['movie_id'] as int?,
       movieId: json['movie_movie_id'] as String,
       title: json['movie_title'] as String,
-      imageUrl: json['movie_image_url'] as String,
+      imageUrl: json['movie_image_url'] as String?,
       releaseDate: json['movie_release_date'] as int,
     );
 

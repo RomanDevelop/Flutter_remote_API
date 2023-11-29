@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_application_2/data/database/entity/movie_db_entity.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -11,6 +12,7 @@ abstract class BaseDao {
 
   Database? _database;
 
+  @protected
   Future<Database> getDb() async {
     _database ??= await _getDatabase();
     return _database!;
@@ -29,15 +31,16 @@ abstract class BaseDao {
   }
 
   void _createMoviesTableV1(Batch batch) {
-    batch.execute('''
+    batch.execute(
+      '''
       CREATE TABLE $moviesTableName(
-        ${MovieDbEntity.fieldId} INTEGER PRIMER KEY AUTOINCREMENT,
-        ${MovieDbEntity.fieldMovieId} TEXT NOT NULL,
-        ${MovieDbEntity.fieldTitle} TEXT NOT NULL,
-        ${MovieDbEntity.fieldImageUrl} TEXT NULL,
-        ${MovieDbEntity.fieldReleaseDate} INTEGER NOT NULL
-
+      ${MovieDbEntity.fieldId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${MovieDbEntity.fieldMovieId} TEXT NOT NULL,
+      ${MovieDbEntity.fieldTitle} TEXT NOT NULL,
+      ${MovieDbEntity.fieldImageUrl} TEXT NULL,
+      ${MovieDbEntity.fieldReleaseDate} INTEGER NOT NULL
       );
-      ''');
+      ''',
+    );
   }
 }

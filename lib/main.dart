@@ -24,7 +24,7 @@ class InitialData {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ignore: avoid_redungant_argument_values
+  // ignore: avoid_redungant_argument_values, deprecated_member_use
   await Sqflite.devSetDebugModeOn(kDebugMode);
 
   final data = await _createData();
