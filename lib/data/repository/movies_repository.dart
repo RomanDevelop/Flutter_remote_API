@@ -39,4 +39,6 @@ class MoviesRepository {
 
     return movies;
   }
+
+  Future<void> deleteAll() async => moviesDao.deleteAll();
 }

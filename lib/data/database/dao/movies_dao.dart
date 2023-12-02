@@ -27,4 +27,9 @@ class MoviesDao extends BaseDao {
       }
     });
   }
+
+  Future<void> deleteAll() async {
+    final Database db = await getDb();
+    await db.delete(BaseDao.moviesTableName);
+  }
 }

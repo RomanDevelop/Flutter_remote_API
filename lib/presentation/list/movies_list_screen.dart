@@ -45,10 +45,12 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Upcoming Movies'),
-        ),
-        body: PagedListView<int, Movie>(
+      appBar: AppBar(
+        title: const Text('Upcoming Movies'),
+      ),
+      body: RefreshIndicator(
+        onRefresh: _refresh,
+        child: PagedListView<int, Movie>(
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<Movie>(
             itemBuilder: (context, movie, index) => Container(
@@ -63,6 +65,13 @@ class _MoviesListScreenState extends State<MoviesListScreen> {
               ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
+  }
+
+  Future<void> _refresh() async {
+    await _model.deletePersistedMovies();
+    _pagingController.refresh();
   }
 }
