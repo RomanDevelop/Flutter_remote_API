@@ -41,4 +41,21 @@ class MoviesRepository {
   }
 
   Future<void> deleteAll() async => moviesDao.deleteAll();
+
+  Future<bool> checkNewData() async {
+    final entities = await moviesDao.selectAll(limit: 1);
+
+    if (entities.isEmpty) {
+      return false;
+    }
+    final entity = entities.first;
+
+    final movies = await apiClient.getUpcomingMovies(page: 1, limit: 1);
+
+    if (entity.movieId == movies.results.first.id) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
